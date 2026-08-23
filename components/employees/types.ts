@@ -6,5 +6,8 @@ export interface EmployeeRow {
   name: string;
   email: string;
   role: Role;
+  isActive: boolean;
   createdAt: string;
+  /** Latest order timestamp (ISO) or null when the employee has no orders. */
+  lastOrderAt: string | null;
 }

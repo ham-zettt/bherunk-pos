@@ -19,7 +19,7 @@ export const ROLE_HOME: Record<Role, string> = {
 
 /** Route prefixes each role is allowed to access (enforced by proxy.ts + requireRole). */
 export const ROLE_ALLOWED_PREFIXES: Record<Role, string[]> = {
-  ADMIN: ["/dashboard", "/inventory", "/employees", "/orders", "/pos"],
+  ADMIN: ["/dashboard", "/inventory", "/employees", "/orders", "/pos", "/kds"],
   CASHIER: ["/pos", "/orders"],
   KITCHEN: ["/kds"],
 };

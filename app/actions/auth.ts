@@ -27,6 +27,11 @@ export async function login(_prev: LoginFormState, formData: FormData): Promise<
     return { message: "Invalid email or password." };
   }
 
+  // Correct credentials but deactivated account: explicit, non-enumerating message.
+  if (!user.isActive) {
+    return { message: "This account has been deactivated. Contact an admin." };
+  }
+
   await createSession({ userId: user.id, role: user.role, name: user.name });
 
   redirect(resolvePostLoginPath(user.role, formData.get("redirectTo")));

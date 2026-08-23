@@ -7,12 +7,20 @@ import { isRole } from "@/lib/constants";
 export const metadata = { title: "Employees | D'BHERUNK Cafe System" };
 
 export default async function EmployeesPage() {
-  await requireRole("ADMIN");
+  const session = await requireRole("ADMIN");
 
   // Password hash deliberately never selected.
   const users = await db.user.findMany({
     orderBy: { createdAt: "asc" },
-    select: { id: true, name: true, email: true, role: true, createdAt: true },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      isActive: true,
+      createdAt: true,
+      orders: { orderBy: { createdAt: "desc" as const }, take: 1, select: { createdAt: true } },
+    },
   });
 
   const rows: EmployeeRow[] = users.map((u) => ({
@@ -20,8 +28,10 @@ export default async function EmployeesPage() {
     name: u.name,
     email: u.email,
     role: isRole(u.role) ? u.role : "CASHIER",
+    isActive: u.isActive,
     createdAt: u.createdAt.toISOString(),
+    lastOrderAt: u.orders[0]?.createdAt.toISOString() ?? null,
   }));
 
-  return <EmployeesView employees={rows} />;
+  return <EmployeesView employees={rows} currentUserId={session.userId} />;
 }

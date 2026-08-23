@@ -16,13 +16,13 @@ export default async function HomePage() {
         <div className="text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-2 border border-hairline text-ink-muted text-xs font-medium tracking-wide">
             <Coffee className="w-3.5 h-3.5 text-primary" aria-hidden="true" />
-            <span>D&apos;BHERUNK CAFE PLATFORM</span>
+            <span>D&apos;BHERUNK CAFE WEBSITE</span>
           </div>
           <h1 className="text-4xl md:text-6xl font-semibold tracking-tight text-ink">
-            Point of Sale &amp; Cafe Operations
+            D'Bherunk Cafe System
           </h1>
           <p className="text-ink-subtle text-base md:text-lg max-w-xl mx-auto">
-            Unified operations engine for Cashiers, Kitchen Baristas, and Cafe Managers.
+            Aplikasi web untuk mengelola pesanan, inventaris, sistem kasir dan laporan penjualan di D'Bherunk Cafe.
           </p>
         </div>
 
@@ -34,9 +34,9 @@ export default async function HomePage() {
               <div className="w-10 h-10 rounded-md bg-surface-2 flex items-center justify-center text-primary">
                 <ShieldCheck className="w-5 h-5" aria-hidden="true" />
               </div>
-              <h2 className="text-lg font-medium text-ink">Management Portal</h2>
+              <h2 className="text-lg font-medium text-ink">Admin Dashboard</h2>
               <p className="text-ink-subtle text-sm">
-                Executive dashboard, sales telemetry, inventory stock control, and staff accounts.
+                Dashboard, telemetri penjualan, kontrol stok inventaris, dan akun staf.
               </p>
             </div>
             {session?.role === "ADMIN" ? (
@@ -44,14 +44,14 @@ export default async function HomePage() {
                 href="/dashboard"
                 className="mt-6 inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:text-primary-hover transition-colors"
               >
-                Open Dashboard <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                Buka Dashboard <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
               </Link>
             ) : (
               <Link
                 href="/login?redirect=%2Fdashboard"
                 className="mt-6 inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:text-primary-hover transition-colors"
               >
-                Access Dashboard <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                Akses Dashboard <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
               </Link>
             )}
           </div>
@@ -62,16 +62,16 @@ export default async function HomePage() {
               <div className="w-10 h-10 rounded-md bg-surface-2 flex items-center justify-center text-primary">
                 <ShoppingBag className="w-5 h-5" aria-hidden="true" />
               </div>
-              <h2 className="text-lg font-medium text-ink">Cashier POS</h2>
+              <h2 className="text-lg font-medium text-ink">Sistem Kasir</h2>
               <p className="text-ink-subtle text-sm">
-                Fast order entry, item customization notes, multi-method checkout, and instant KDS dispatch.
+                Transaksi menu, pembayaran, dan notifikasi pesanan ke bagian dapur.
               </p>
             </div>
             <Link
               href="/pos"
               className="mt-6 inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:text-primary-hover transition-colors"
             >
-              Open Register <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+              Buka Register <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
             </Link>
           </div>
 
@@ -83,14 +83,14 @@ export default async function HomePage() {
               </div>
               <h2 className="text-lg font-medium text-ink">Kitchen Display (KDS)</h2>
               <p className="text-ink-subtle text-sm">
-                Live order queue, ticket timer, item customization alerts, and real-time status transitions.
+                Order secara real-time dan transisi status pesanan secara langsung.
               </p>
             </div>
             <Link
               href="/kds"
               className="mt-6 inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:text-primary-hover transition-colors"
             >
-              Open Kitchen Screen <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+              Buka Kitchen Screen <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
             </Link>
           </div>
         </div>
@@ -119,7 +119,7 @@ export default async function HomePage() {
               href="/login"
               className="inline-flex items-center justify-center px-6 py-2.5 rounded-md bg-primary hover:bg-primary-hover active:bg-primary-focus text-on-primary text-sm font-medium transition-colors min-h-[40px]"
             >
-              Sign In to Account
+              Login Akun
             </Link>
           )}
         </div>

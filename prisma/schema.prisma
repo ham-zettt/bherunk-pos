@@ -32,6 +32,7 @@ model User {
   email     String   @unique
   password  String   // Hashed password
   role      Role
+  isActive  Boolean  @default(true) // Deactivated users cannot log in; orders stay attributed
   orders    Order[]  // Relation: Orders processed by this cashier
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
