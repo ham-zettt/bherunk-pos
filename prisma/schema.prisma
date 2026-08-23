@@ -1,0 +1,84 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Enums for fixed values
+enum Role {
+  ADMIN
+  CASHIER
+  KITCHEN
+}
+
+enum OrderStatus {
+  IN_QUEUE
+  PREPARING
+  COMPLETED
+}
+
+// Users table (Employee Management & Auth)
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String   // Hashed password
+  role      Role
+  orders    Order[]  // Relation: Orders processed by this cashier
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Categories for Inventory (e.g., Coffee, Meals, Snacks)
+model Category {
+  id       String    @id @default(uuid())
+  name     String
+  products Product[]
+}
+
+// Products table (Inventory Management)
+model Product {
+  id          String      @id @default(uuid())
+  name        String
+  description String?
+  price       Decimal
+  stock       Int         @default(0)
+  categoryId  String
+  category    Category    @relation(fields: [categoryId], references: [id])
+  orderItems  OrderItem[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+// Orders table (POS & KDS Core)
+model Order {
+  id            String      @id @default(uuid())
+  cashierId     String
+  cashier       User        @relation(fields: [cashierId], references: [id])
+  totalAmount   Decimal
+  status        OrderStatus @default(IN_QUEUE)
+  paymentMethod String?     // e.g., CASH, QRIS, DEBIT
+  orderItems    OrderItem[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+// Order Items (Details of each product in an order)
+model OrderItem {
+  id        String  @id @default(uuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Decimal // Snapshot of the price at the time of order
+  notes     String? // Special requests (e.g., "Less sugar", "Extra shot")
+}

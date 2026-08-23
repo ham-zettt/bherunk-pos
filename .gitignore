@@ -10,6 +10,17 @@
 !.yarn/releases
 !.yarn/versions
 
+# agent files
+.agents
+.claude
+.opencode
+.windsurf
+/skills
+/tasks
+AGENTS.md
+DESIGN.md
+PRD.md
+
 # testing
 /coverage
 
@@ -39,3 +50,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/app/generated/prisma

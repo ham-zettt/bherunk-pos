@@ -1,0 +1,27 @@
+import { db } from "@/lib/db";
+import { requireRole } from "@/lib/auth";
+import { EmployeesView } from "@/components/employees/employees-view";
+import type { EmployeeRow } from "@/components/employees/types";
+import { isRole } from "@/lib/constants";
+
+export const metadata = { title: "Employees | D'BHERUNK Cafe System" };
+
+export default async function EmployeesPage() {
+  await requireRole("ADMIN");
+
+  // Password hash deliberately never selected.
+  const users = await db.user.findMany({
+    orderBy: { createdAt: "asc" },
+    select: { id: true, name: true, email: true, role: true, createdAt: true },
+  });
+
+  const rows: EmployeeRow[] = users.map((u) => ({
+    id: u.id,
+    name: u.name,
+    email: u.email,
+    role: isRole(u.role) ? u.role : "CASHIER",
+    createdAt: u.createdAt.toISOString(),
+  }));
+
+  return <EmployeesView employees={rows} />;
+}
