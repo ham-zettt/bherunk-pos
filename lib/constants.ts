@@ -12,24 +12,34 @@ export type PaymentMethod = (typeof PAYMENT_METHODS)[number];
 
 /** Home route for each role after login. */
 export const ROLE_HOME: Record<Role, string> = {
-  ADMIN: "/dashboard",
-  CASHIER: "/pos",
-  KITCHEN: "/kds",
+	ADMIN: "/dashboard",
+	CASHIER: "/pos",
+	KITCHEN: "/kds",
 };
 
 /** Route prefixes each role is allowed to access (enforced by proxy.ts + requireRole). */
 export const ROLE_ALLOWED_PREFIXES: Record<Role, string[]> = {
-  ADMIN: ["/dashboard", "/inventory", "/employees", "/orders", "/pos", "/kds"],
-  CASHIER: ["/pos", "/orders"],
-  KITCHEN: ["/kds"],
+	ADMIN: [
+		"/dashboard",
+		"/inventory",
+		"/employees",
+		"/orders",
+		"/pos",
+		"/kds",
+	],
+	CASHIER: ["/pos", "/orders"],
+	KITCHEN: ["/kds"],
 };
 
 export interface SessionUser {
-  userId: string;
-  role: Role;
-  name: string;
+	userId: string;
+	role: Role;
+	name: string;
 }
 
 export function isRole(value: unknown): value is Role {
-  return typeof value === "string" && (ROLES as readonly string[]).includes(value);
+	return (
+		typeof value === "string" &&
+		(ROLES as readonly string[]).includes(value)
+	);
 }

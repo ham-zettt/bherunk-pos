@@ -53,7 +53,7 @@ export function MetricCard({
 						}
 					>
 						{delta}
-						<span className="sr-only"> versus yesterday</span>
+						<span className="sr-only"> dibanding kemarin</span>
 					</span>
 				</p>
 			)}

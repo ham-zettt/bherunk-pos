@@ -7,30 +7,30 @@ import { requireRole } from "@/lib/auth";
 import type { Role } from "@/lib/constants";
 
 const CreateEmployeeSchema = z.object({
-  name: z.string().trim().min(1, { error: "Name is required." }).max(100),
-  email: z.email({ error: "Please enter a valid email address." }).max(254),
+  name: z.string().trim().min(1, { error: "Nama wajib diisi." }).max(100),
+  email: z.email({ error: "Masukkan alamat email yang valid." }).max(254),
   password: z
     .string()
-    .min(8, { error: "Password must be at least 8 characters." })
-    .max(72, { error: "Password must be at most 72 characters." }),
+    .min(8, { error: "Kata sandi minimal 8 karakter." })
+    .max(72, { error: "Kata sandi maksimal 72 karakter." }),
   role: z.enum(["ADMIN", "CASHIER", "KITCHEN"], {
-    error: "Please pick a role.",
+    error: "Silakan pilih role.",
   }),
 });
 
 const UpdateEmployeeSchema = z.object({
   employeeId: z.uuid(),
-  name: z.string().trim().min(1, { error: "Name is required." }).max(100),
+  name: z.string().trim().min(1, { error: "Nama wajib diisi." }).max(100),
   role: z.enum(["ADMIN", "CASHIER", "KITCHEN"], {
-    error: "Please pick a role.",
+    error: "Silakan pilih role.",
   }),
   // Blank = keep current password.
   newPassword: z.union([
     z.literal(""),
     z
       .string()
-      .min(8, { error: "New password must be at least 8 characters." })
-      .max(72, { error: "New password must be at most 72 characters." }),
+      .min(8, { error: "Kata sandi baru minimal 8 karakter." })
+      .max(72, { error: "Kata sandi baru maksimal 72 karakter." }),
   ]),
 });
 
@@ -58,7 +58,7 @@ export async function updateEmployee(
   if (!parsed.success) {
     return {
       errors: parsed.error.flatten().fieldErrors as EmployeeFormState["errors"],
-      message: "Please fix the highlighted fields.",
+      message: "Perbaiki kolom yang ditandai.",
     };
   }
 
@@ -67,18 +67,18 @@ export async function updateEmployee(
     select: { id: true, role: true, isActive: true },
   });
   if (!target) {
-    return { message: "Employee no longer exists. Refresh and try again." };
+    return { message: "Karyawan sudah tidak ada. Muat ulang lalu coba lagi." };
   }
 
   if (target.id === session.userId && parsed.data.role !== "ADMIN") {
-    return { errors: { role: ["You cannot change your own role."] }, message: "Please fix the highlighted fields." };
+    return { errors: { role: ["Anda tidak dapat mengubah peran sendiri."] }, message: "Perbaiki kolom yang ditandai." };
   }
   if (
     target.role === "ADMIN" &&
     parsed.data.role !== "ADMIN" &&
     (await isLastActiveAdmin())
   ) {
-    return { errors: { role: ["Cannot demote the only active admin."] }, message: "Please fix the highlighted fields." };
+    return { errors: { role: ["Tidak dapat menurunkan satu-satunya admin aktif."] }, message: "Perbaiki kolom yang ditandai." };
   }
 
   await db.user.update({
@@ -166,7 +166,7 @@ export async function createEmployee(
   if (!parsed.success) {
     return {
       errors: parsed.error.flatten().fieldErrors as EmployeeFormState["errors"],
-      message: "Please fix the highlighted fields.",
+      message: "Perbaiki kolom yang ditandai.",
     };
   }
 
@@ -175,8 +175,8 @@ export async function createEmployee(
   const duplicate = await db.user.findUnique({ where: { email }, select: { id: true } });
   if (duplicate) {
     return {
-      errors: { email: ["An account with this email already exists."] },
-      message: "Please fix the highlighted fields.",
+      errors: { email: ["Akun dengan email ini sudah ada."] },
+      message: "Perbaiki kolom yang ditandai.",
     };
   }
 
@@ -200,8 +200,8 @@ export async function createEmployee(
       (err as { code?: string }).code === "P2002"
     ) {
       return {
-        errors: { email: ["An account with this email already exists."] },
-        message: "Please fix the highlighted fields.",
+        errors: { email: ["Akun dengan email ini sudah ada."] },
+        message: "Perbaiki kolom yang ditandai.",
       };
     }
     throw err;

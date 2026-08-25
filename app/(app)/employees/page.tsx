@@ -4,7 +4,7 @@ import { EmployeesView } from "@/components/employees/employees-view";
 import type { EmployeeRow } from "@/components/employees/types";
 import { isRole } from "@/lib/constants";
 
-export const metadata = { title: "Employees | D'BHERUNK Cafe System" };
+export const metadata = { title: "Karyawan | Sistem Kafe D'BHERUNK" };
 
 export default async function EmployeesPage() {
   const session = await requireRole("ADMIN");

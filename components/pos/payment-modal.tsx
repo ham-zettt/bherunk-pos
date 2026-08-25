@@ -78,11 +78,11 @@ export function PaymentModal({
 		>
 			<div className="flex items-start justify-between gap-4">
 				<h2 id="payment-dialog-title" className="text-lg font-medium text-ink">
-					Payment
+					Pembayaran
 				</h2>
 				<button
 					type="button"
-					aria-label="Close payment dialog"
+					aria-label="Tutup dialog pembayaran"
 					onClick={onClose}
 					className="inline-flex h-8 w-8 items-center justify-center rounded-md text-ink-subtle hover:bg-surface-2 hover:text-ink"
 				>
@@ -104,20 +104,20 @@ export function PaymentModal({
 				)}
 
 				<div className="flex items-baseline justify-between rounded-md bg-surface-2 px-3.5 py-3">
-					<span className="text-sm text-ink-muted">Total due</span>
+					<span className="text-sm text-ink-muted">Total bayar</span>
 					<span className="text-xl font-semibold tabular-nums text-ink">
 						{formatIDR(String(subtotalInt))}
 					</span>
 				</div>
 
 				<fieldset>
-					<legend className="mb-1.5 text-sm text-ink-muted">Method</legend>
+					<legend className="mb-1.5 text-sm text-ink-muted">Metode</legend>
 					<div className="grid grid-cols-2 gap-2">
 						<MethodChip
 							selected={method === "CASH"}
 							onClick={() => setMethod("CASH")}
 							icon={<Banknote className="h-4 w-4" aria-hidden="true" />}
-							label="Cash"
+							label="Tunai"
 						/>
 						<MethodChip
 							selected={method === "QRIS"}
@@ -131,7 +131,7 @@ export function PaymentModal({
 				{method === "CASH" && (
 					<div className="space-y-1.5">
 						<label htmlFor="cash-received" className="block text-sm text-ink-muted">
-							Cash received
+							Uang diterima
 						</label>
 						<input
 							id="cash-received"
@@ -142,15 +142,15 @@ export function PaymentModal({
 							inputMode="numeric"
 							value={cashReceived}
 							onChange={(e) => setCashReceived(e.target.value)}
-							placeholder="e.g. 50000"
+							placeholder="mis. 50000"
 							aria-invalid={!cashValid}
 							className="w-full rounded-md bg-surface-2 border border-hairline px-3 py-2 text-base tabular-nums text-ink placeholder:text-ink-tertiary outline-none focus-visible:border-hairline-strong focus-visible:outline-2 focus-visible:outline-primary-focus/50"
 						/>
 						{cashReceived !== "" && Number.isFinite(receivedInt) && (
 							<p aria-live="polite" className="text-sm text-ink-muted">
 								{receivedInt >= subtotalInt
-									? `Change: Rp ${formatAmount(receivedInt - subtotalInt)}`
-									: "Not enough cash received."}
+									? `Kembalian: Rp ${formatAmount(receivedInt - subtotalInt)}`
+									: "Uang diterima belum cukup."}
 							</p>
 						)}
 					</div>
@@ -162,7 +162,7 @@ export function PaymentModal({
 						onClick={onClose}
 						className="min-h-[40px] rounded-md bg-surface-2 px-3.5 text-sm font-medium text-ink hover:border-hairline-strong border border-transparent"
 					>
-						Cancel
+						Batal
 					</button>
 					<button
 						type="submit"
@@ -172,7 +172,7 @@ export function PaymentModal({
 						{pending && (
 							<Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
 						)}
-						{pending ? "Processing…" : "Confirm & pay"}
+						{pending ? "Memproses…" : "Konfirmasi &amp; bayar"}
 					</button>
 				</div>
 			</form>

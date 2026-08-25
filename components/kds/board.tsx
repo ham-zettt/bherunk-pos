@@ -6,9 +6,9 @@ import { useOrderPolling, type KdsOrder } from "@/hooks/use-order-polling";
 import { TicketCard } from "./ticket-card";
 
 const COLUMNS = [
-	{ status: "IN_QUEUE", label: "Queue" },
-	{ status: "PREPARING", label: "Preparing" },
-	{ status: "COMPLETED", label: "Done" },
+	{ status: "IN_QUEUE", label: "Antrean" },
+	{ status: "PREPARING", label: "Diproses" },
+	{ status: "COMPLETED", label: "Selesai" },
 ] as const;
 
 /** Completed tickets leave the Done column after this window. */
@@ -142,8 +142,8 @@ export function Board({ initialOrders }: BoardProps) {
 			Notification.permission === "granted"
 		) {
 			for (const t of newToasts) {
-				new Notification("New order received", {
-					body: `#${t.orderId.slice(0, 8).toUpperCase()} · ${t.itemCount} item(s) waiting`,
+				new Notification("Pesanan baru diterima", {
+					body: `#${t.orderId.slice(0, 8).toUpperCase()} · ${t.itemCount} item menunggu`,
 				});
 			}
 		}
@@ -206,10 +206,10 @@ export function Board({ initialOrders }: BoardProps) {
 						className="pointer-events-auto rounded-lg border border-yellow-300 bg-surface-1 px-4 py-3 text-left shadow-lg"
 					>
 						<p className="text-sm font-semibold text-yellow-300">
-							New order #{t.orderId.slice(0, 8).toUpperCase()}
+							Pesanan baru #{t.orderId.slice(0, 8).toUpperCase()}
 						</p>
 						<p className="mt-0.5 text-[13px] text-amber-400">
-							{t.itemCount} item(s) waiting in queue — tap to
+							{t.itemCount} item menunggu di antrean — ketuk untuk
 							dismiss
 						</p>
 					</button>
@@ -231,7 +231,7 @@ export function Board({ initialOrders }: BoardProps) {
 						</h2>
 						{columns[col.status].length === 0 ? (
 							<p className="rounded-lg border border-dashed border-hairline p-6 text-center text-sm text-ink-tertiary">
-								No tickets
+								Belum ada tiket
 							</p>
 						) : (
 							columns[col.status].map((order) => (
@@ -250,12 +250,12 @@ export function Board({ initialOrders }: BoardProps) {
 				{notifState === "granted" ? (
 					<span className="inline-flex items-center gap-1.5 text-[12px] text-ink-tertiary">
 						<Bell className="h-3.5 w-3.5" aria-hidden="true" />
-						Sound &amp; notifications on
+						Suara &amp; notifikasi aktif
 					</span>
 				) : notifState === "denied" ? (
 					<span className="inline-flex items-center gap-1.5 text-[12px] text-ink-tertiary">
 						<BellOff className="h-3.5 w-3.5" aria-hidden="true" />
-						Notifications blocked in browser settings
+						Notifikasi diblokir di pengaturan peramban
 					</span>
 				) : (
 					<button
@@ -264,7 +264,7 @@ export function Board({ initialOrders }: BoardProps) {
 						className="inline-flex min-h-[32px] items-center gap-1.5 rounded-md px-2 text-[12px] font-medium text-ink-subtle hover:text-ink"
 					>
 						<Bell className="h-3.5 w-3.5" aria-hidden="true" />
-						Enable sound &amp; desktop notifications
+						Aktifkan suara &amp; notifikasi desktop
 					</button>
 				)}
 				<p
@@ -278,8 +278,8 @@ export function Board({ initialOrders }: BoardProps) {
 						/>
 					)}
 					{stale
-						? "Reconnecting…"
-						: `Live · ${orders.length} ticket(s)`}
+						? "Menyambungkan ulang…"
+						: `Langsung · ${orders.length} tiket`}
 				</p>
 			</div>
 		</div>

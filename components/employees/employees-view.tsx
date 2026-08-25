@@ -9,8 +9,8 @@ import type { EmployeeRow } from "./types";
 
 const ROLE_LABELS: Record<EmployeeRow["role"], string> = {
 	ADMIN: "Admin",
-	CASHIER: "Cashier",
-	KITCHEN: "Kitchen",
+	CASHIER: "Kasir",
+	KITCHEN: "Dapur",
 };
 
 const dateTimeFormatter = new Intl.DateTimeFormat("id-ID", {
@@ -33,7 +33,7 @@ export function EmployeesView({ employees, currentUserId }: EmployeesViewProps) 
 		<div className="space-y-6">
 			<div className="flex flex-wrap items-center justify-between gap-3">
 				<h1 className="text-[28px] font-semibold leading-tight tracking-[-0.6px] text-ink">
-					Employees
+					Karyawan
 				</h1>
 				<button
 					type="button"
@@ -41,7 +41,7 @@ export function EmployeesView({ employees, currentUserId }: EmployeesViewProps) 
 					className="inline-flex min-h-[40px] items-center gap-2 rounded-md bg-primary px-3.5 py-2 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover active:bg-primary-focus"
 				>
 					<Plus className="h-4 w-4" aria-hidden="true" />
-					Add employee
+					Tambah karyawan
 				</button>
 			</div>
 
@@ -54,9 +54,9 @@ export function EmployeesView({ employees, currentUserId }: EmployeesViewProps) 
 						className="mx-auto h-10 w-10 text-ink-tertiary"
 						aria-hidden="true"
 					/>
-					<h2 className="mt-3 text-sm font-medium text-ink">No employees yet</h2>
+					<h2 className="mt-3 text-sm font-medium text-ink">Belum ada karyawan</h2>
 					<p className="mt-1 text-sm text-ink-subtle">
-						Add your first staff account to get started.
+						Tambahkan akun staf pertama untuk memulai.
 					</p>
 				</div>
 			) : (
@@ -64,11 +64,11 @@ export function EmployeesView({ employees, currentUserId }: EmployeesViewProps) 
 					<table className="w-full text-left text-sm">
 						<thead>
 							<tr className="border-b border-hairline text-[13px] uppercase tracking-[0.4px] text-ink-subtle">
-								<th scope="col" className="px-4 py-3 font-medium">Name</th>
+								<th scope="col" className="px-4 py-3 font-medium">Nama</th>
 								<th scope="col" className="px-4 py-3 font-medium hidden sm:table-cell">Email</th>
 								<th scope="col" className="px-4 py-3 font-medium">Role</th>
 								<th scope="col" className="px-4 py-3 font-medium">Status</th>
-								<th scope="col" className="px-4 py-3 font-medium hidden lg:table-cell">Last activity</th>
+								<th scope="col" className="px-4 py-3 font-medium hidden lg:table-cell">Aktivitas terakhir</th>
 								<th scope="col" className="px-4 py-3 font-medium text-right">
 									<span className="sr-only">Actions</span>
 								</th>
@@ -109,7 +109,7 @@ export function EmployeesView({ employees, currentUserId }: EmployeesViewProps) 
 												aria-hidden="true"
 												className={`h-1.5 w-1.5 rounded-full ${e.isActive ? "bg-semantic-success" : "bg-ink-tertiary"}`}
 											/>
-											{e.isActive ? "Active" : "Deactivated"}
+											{e.isActive ? "Aktif" : "Nonaktif"}
 										</span>
 									</td>
 									<td
@@ -128,8 +128,8 @@ export function EmployeesView({ employees, currentUserId }: EmployeesViewProps) 
 										<div className="flex items-center justify-end gap-1">
 											<button
 												type="button"
-												aria-label={`Edit ${e.name}`}
-												title={`Edit ${e.name}`}
+												aria-label={`Ubah ${e.name}`}
+												title={`Ubah ${e.name}`}
 												onClick={() => setEditTarget(e)}
 												className="inline-flex h-8 w-8 items-center justify-center rounded-md text-ink-subtle hover:bg-surface-2 hover:text-ink focus-visible:outline-2 focus-visible:outline-primary-focus/50"
 											>
@@ -174,8 +174,8 @@ function ToggleButton({
 }) {
 	const nextActive = !employee.isActive;
 	const label = nextActive
-		? `Reactivate ${employee.name}`
-		: `Deactivate ${employee.name}`;
+		? `Aktifkan kembali ${employee.name}`
+		: `Nonaktifkan ${employee.name}`;
 	return (
 		<>
 			<button
@@ -183,7 +183,7 @@ function ToggleButton({
 				aria-label={label}
 				title={
 					disabled
-						? "You cannot deactivate your own account"
+						? "Anda tidak dapat menonaktifkan akun sendiri"
 						: label
 				}
 				disabled={disabled}

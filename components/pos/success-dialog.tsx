@@ -54,14 +54,14 @@ export function SuccessDialog({
 					aria-hidden="true"
 				/>
 				<h2 id="success-title" className="mt-3 text-lg font-medium text-ink">
-					Order placed
+					Pesanan dibuat
 				</h2>
 				<p className="mt-1 text-sm text-ink-muted">
-					The kitchen queue received this order.
+					Pesanan telah diterima antrean dapur.
 				</p>
 				<dl className="mt-4 space-y-1.5 rounded-md bg-surface-2 px-3.5 py-3 text-left text-sm">
 					<div className="flex justify-between">
-						<dt className="text-ink-subtle">Order</dt>
+						<dt className="text-ink-subtle">Pesanan</dt>
 						<dd className="font-mono text-[13px] text-ink">
 							#{orderId ? orderId.slice(0, 8).toUpperCase() : "—"}
 						</dd>
@@ -79,7 +79,7 @@ export function SuccessDialog({
 					onClick={finish}
 					className="mt-5 inline-flex min-h-[44px] w-full items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover active:bg-primary-focus"
 				>
-					Start new order
+					Mulai pesanan baru
 				</button>
 			</div>
 		</dialog>

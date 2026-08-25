@@ -12,16 +12,16 @@ import type { Role, SessionUser } from "@/lib/constants";
  * Redirects to /login when unauthenticated or deactivated.
  */
 export async function requireSession(): Promise<SessionUser> {
-  const session = await getSession();
-  if (!session) redirect("/login");
+	const session = await getSession();
+	if (!session) redirect("/login");
 
-  const user = await db.user.findUnique({
-    where: { id: session.userId },
-    select: { id: true, name: true, role: true, isActive: true },
-  });
-  if (!user || !user.isActive) redirect("/login");
+	const user = await db.user.findUnique({
+		where: { id: session.userId },
+		select: { id: true, name: true, role: true, isActive: true },
+	});
+	if (!user || !user.isActive) redirect("/login");
 
-  return { userId: user.id, role: user.role, name: user.name };
+	return { userId: user.id, role: user.role, name: user.name };
 }
 
 /**
@@ -30,15 +30,15 @@ export async function requireSession(): Promise<SessionUser> {
  * just not permitted here).
  */
 export async function requireRole(...roles: Role[]): Promise<SessionUser> {
-  const session = await requireSession();
-  if (!roles.includes(session.role)) {
-    redirect(ROLE_HOME[session.role]);
-  }
-  return session;
+	const session = await requireSession();
+	if (!roles.includes(session.role)) {
+		redirect(ROLE_HOME[session.role]);
+	}
+	return session;
 }
 
 const ROLE_HOME: Record<Role, string> = {
-  ADMIN: "/dashboard",
-  CASHIER: "/pos",
-  KITCHEN: "/kds",
+	ADMIN: "/dashboard",
+	CASHIER: "/pos",
+	KITCHEN: "/kds",
 };

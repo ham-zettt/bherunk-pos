@@ -44,11 +44,11 @@ export function ConfirmDeleteDialog({ product, onClose }: ConfirmDeleteDialogPro
 		>
 			<div className="flex items-start justify-between gap-4">
 				<h2 id="delete-dialog-title" className="text-base font-medium text-ink">
-					Delete {product.name}?
+					Hapus {product.name}?
 				</h2>
 				<button
 					type="button"
-					aria-label="Close dialog"
+					aria-label="Tutup dialog"
 					onClick={onClose}
 					className="inline-flex h-8 w-8 items-center justify-center rounded-md text-ink-subtle hover:bg-surface-2 hover:text-ink"
 				>
@@ -57,14 +57,14 @@ export function ConfirmDeleteDialog({ product, onClose }: ConfirmDeleteDialogPro
 			</div>
 
 			<p className="mt-3 text-sm text-ink-muted">
-				This permanently removes the product from the catalog. This action
-				cannot be undone.
+				Produk akan dihapus permanen dari katalog. Tindakan ini tidak dapat
+				dibatalkan.
 			</p>
 			{hasHistory && (
 				<p role="alert" className="mt-3 text-sm text-ink-muted">
 					This product appears in {product.orderItemCount} order record(s).
-					Deletion is blocked to keep past orders intact — set its stock to 0
-					instead if you want to retire it.
+					Penghapusan diblokir agar riwayat pesanan tetap utuh — jika ingin
+					menghentikan penjualannya, set stoknya menjadi 0.
 				</p>
 			)}
 			{state.message && !state.ok && (
@@ -83,7 +83,7 @@ export function ConfirmDeleteDialog({ product, onClose }: ConfirmDeleteDialogPro
 					onClick={onClose}
 					className="min-h-[40px] rounded-md bg-surface-2 px-3.5 text-sm font-medium text-ink hover:border-hairline-strong border border-transparent"
 				>
-					Cancel
+					Batal
 				</button>
 				<button
 					type="submit"
@@ -93,7 +93,7 @@ export function ConfirmDeleteDialog({ product, onClose }: ConfirmDeleteDialogPro
 					{pending && (
 						<Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
 					)}
-					{hasHistory ? "Blocked" : pending ? "Deleting…" : "Delete"}
+					{hasHistory ? "Diblokir" : pending ? "Menghapus…" : "Hapus"}
 				</button>
 			</form>
 		</dialog>

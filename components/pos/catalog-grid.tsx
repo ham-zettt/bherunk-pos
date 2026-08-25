@@ -28,11 +28,11 @@ export function CatalogGrid({ products, categories }: CatalogGridProps) {
 	}, [products, activeCategory, query]);
 
 	return (
-		<section aria-label="Product catalog" className="flex min-w-0 flex-1 flex-col gap-4">
+		<section aria-label="Katalog produk" className="flex min-w-0 flex-1 flex-col gap-4">
 			<div className="flex flex-wrap items-center gap-2">
-				<div role="tablist" aria-label="Filter by category" className="flex flex-wrap gap-2">
+				<div role="tablist" aria-label="Filter kategori" className="flex flex-wrap gap-2">
 					<Tab
-						label="All"
+						label="Semua"
 						active={activeCategory === "all"}
 						onClick={() => setActiveCategory("all")}
 					/>
@@ -54,8 +54,8 @@ export function CatalogGrid({ products, categories }: CatalogGridProps) {
 						type="search"
 						value={query}
 						onChange={(e) => setQuery(e.target.value)}
-						placeholder="Search products…"
-						aria-label="Search products"
+						placeholder="Cari produk…"
+						aria-label="Cari produk"
 						className="w-full rounded-pill bg-surface-1 border border-hairline py-2 pl-9 pr-3 text-sm text-ink placeholder:text-ink-tertiary outline-none focus-visible:border-hairline-strong focus-visible:outline-2 focus-visible:outline-primary-focus/50"
 					/>
 				</div>
@@ -63,7 +63,7 @@ export function CatalogGrid({ products, categories }: CatalogGridProps) {
 
 			{visible.length === 0 ? (
 				<p role="status" className="rounded-lg border border-hairline bg-surface-1 p-10 text-center text-sm text-ink-subtle">
-					No products match.
+					Tidak ada produk yang cocok.
 				</p>
 			) : (
 				<ul className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-3">
@@ -79,8 +79,8 @@ export function CatalogGrid({ products, categories }: CatalogGridProps) {
 									onClick={() => add(p.id, p.stock)}
 									aria-label={
 										soldOut
-											? `${p.name} — sold out`
-											: `Add ${p.name} to cart`
+											? `${p.name} — habis`
+											: `Tambah ${p.name} ke keranjang`
 									}
 									className={`group flex w-full flex-col gap-1.5 rounded-lg border border-hairline bg-surface-1 p-3.5 text-left transition-colors ${
 										soldOut || capped
@@ -97,7 +97,7 @@ export function CatalogGrid({ products, categories }: CatalogGridProps) {
 										</span>
 										{soldOut ? (
 											<span className="rounded-pill bg-surface-2 px-2 py-0.5 text-[11px] font-medium leading-none text-ink-subtle">
-												Sold out
+												Habis
 											</span>
 										) : inCart > 0 ? (
 											<span className="inline-flex items-center gap-1 rounded-pill bg-primary px-2 py-0.5 text-[11px] font-semibold leading-none text-on-primary">
@@ -108,7 +108,7 @@ export function CatalogGrid({ products, categories }: CatalogGridProps) {
 											</span>
 										) : p.stock < LOW_STOCK_THRESHOLD ? (
 											<span className="rounded-pill bg-surface-2 px-2 py-0.5 text-[11px] font-medium leading-none text-ink-muted">
-												{p.stock} left
+												Sisa {p.stock}
 											</span>
 										) : null}
 									</span>

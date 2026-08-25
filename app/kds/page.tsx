@@ -5,7 +5,7 @@ import { requireRole } from "@/lib/auth";
 import { Board } from "@/components/kds/board";
 import type { KdsOrder } from "@/hooks/use-order-polling";
 
-export const metadata = { title: "Kitchen Display | D'BHERUNK Cafe System" };
+export const metadata = { title: "Dapur (KDS) | Sistem Kafe D'BHERUNK" };
 
 /** Full-screen KDS board for kitchen staff (and admins). */
 export default async function KdsPage() {
@@ -64,8 +64,8 @@ export default async function KdsPage() {
           <form action={logout}>
             <button
               type="submit"
-              aria-label="Sign out"
-              title="Sign out"
+              aria-label="Keluar"
+              title="Keluar"
               className="inline-flex h-9 w-9 items-center justify-center rounded-md text-ink-subtle hover:bg-surface-2 hover:text-ink focus-visible:outline-2 focus-visible:outline-primary-focus/50"
             >
               <LogOut className="h-4 w-4" aria-hidden="true" />

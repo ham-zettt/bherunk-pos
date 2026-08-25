@@ -7,9 +7,9 @@ const STATUS_META: Record<
 	KdsOrder["status"],
 	{ label: string; dot: string }
 > = {
-	IN_QUEUE: { label: "Queued", dot: "bg-ink-tertiary" },
-	PREPARING: { label: "Preparing", dot: "bg-semantic-success" },
-	COMPLETED: { label: "Done", dot: "bg-semantic-success opacity-40" },
+	IN_QUEUE: { label: "Menunggu", dot: "bg-ink-tertiary" },
+	PREPARING: { label: "Diproses", dot: "bg-semantic-success" },
+	COMPLETED: { label: "Selesai", dot: "bg-semantic-success opacity-40" },
 };
 
 const timeFmt = new Intl.DateTimeFormat("id-ID", {
@@ -28,14 +28,14 @@ export function RecentOrders({ initialOrders }: RecentOrdersProps) {
 
 	return (
 		<section
-			aria-label="Recent orders"
+			aria-label="Pesanan terbaru"
 			className="mt-4 rounded-lg border border-hairline bg-surface-1 p-4"
 		>
 			<h2 className="text-[13px] font-semibold uppercase tracking-[0.4px] text-ink-subtle">
-				Recent orders
+				Pesanan terbaru
 			</h2>
 			{latest.length === 0 ? (
-				<p className="mt-2 text-sm text-ink-subtle">No orders yet today.</p>
+				<p className="mt-2 text-sm text-ink-subtle">Belum ada pesanan hari ini.</p>
 			) : (
 				<ul className="mt-2 divide-y divide-hairline">
 					{latest.map((o) => {

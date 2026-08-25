@@ -32,14 +32,14 @@ export function CartPanel({ productById, onCharge }: CartPanelProps) {
 		>
 			<div className="flex items-center justify-between border-b border-hairline px-4 py-3">
 				<h2 className="text-sm font-semibold uppercase tracking-[0.4px] text-ink-subtle">
-					Cart · {resolved.reduce((n, l) => n + l.qty, 0)}
+					Keranjang · {resolved.reduce((n, l) => n + l.qty, 0)}
 				</h2>
 				{resolved.length > 0 && (
 					<button
 						type="button"
 						onClick={clear}
-						aria-label="Clear cart"
-						title="Clear cart"
+						aria-label="Kosongkan keranjang"
+						title="Kosongkan keranjang"
 						className="inline-flex h-8 w-8 items-center justify-center rounded-md text-ink-subtle hover:bg-surface-2 hover:text-ink focus-visible:outline-2 focus-visible:outline-primary-focus/50"
 					>
 						<Trash2 className="h-4 w-4" aria-hidden="true" />
@@ -49,7 +49,7 @@ export function CartPanel({ productById, onCharge }: CartPanelProps) {
 
 			{resolved.length === 0 ? (
 				<p className="px-4 py-10 text-center text-sm text-ink-subtle">
-					Tap products to start an order.
+					Ketuk produk untuk mulai memesan.
 				</p>
 			) : (
 				<ul className="max-h-[46vh] flex-1 space-y-1 overflow-y-auto p-2 lg:max-h-none">
@@ -70,7 +70,7 @@ export function CartPanel({ productById, onCharge }: CartPanelProps) {
 							<div className="flex items-center gap-0.5">
 								<button
 									type="button"
-									aria-label={`Decrease ${l.product.name}`}
+									aria-label={`Kurangi ${l.product.name}`}
 									onClick={() => decrement(l.productId)}
 									className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-transparent text-ink-subtle hover:bg-surface-2 hover:text-ink focus-visible:outline-2 focus-visible:outline-primary-focus/50"
 								>
@@ -81,7 +81,7 @@ export function CartPanel({ productById, onCharge }: CartPanelProps) {
 								</span>
 								<button
 									type="button"
-									aria-label={`Increase ${l.product.name}`}
+									aria-label={`Tambah ${l.product.name}`}
 									disabled={l.qty >= l.product.stock}
 									onClick={() => increment(l.productId, l.product.stock)}
 									className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-transparent text-ink-subtle hover:bg-surface-2 hover:text-ink disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline-2 focus-visible:outline-primary-focus/50"
@@ -114,7 +114,7 @@ export function CartPanel({ productById, onCharge }: CartPanelProps) {
 					onClick={onCharge}
 					className="inline-flex min-h-[44px] w-full items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover active:bg-primary-focus disabled:cursor-not-allowed disabled:opacity-40"
 				>
-					Charge
+					Bayar
 				</button>
 			</div>
 		</aside>

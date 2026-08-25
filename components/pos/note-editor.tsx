@@ -28,25 +28,25 @@ export function NoteEditor({ productId, productName }: NoteEditorProps) {
 					onChange={(e) => setDraft(e.target.value)}
 					rows={2}
 					maxLength={200}
-					placeholder="e.g. Less sugar"
-					aria-label={`Note for ${productName}`}
+					placeholder="cth. Kurangi gula"
+					aria-label={`Catatan untuk ${productName}`}
 					autoFocus
 					className="min-h-[40px] w-full rounded-md bg-surface-2 border border-hairline px-2.5 py-1.5 text-[13px] text-ink placeholder:text-ink-tertiary outline-none focus-visible:border-hairline-strong focus-visible:outline-2 focus-visible:outline-primary-focus/50"
 				/>
 				<button
 					type="button"
-					aria-label="Save note"
+					aria-label="Simpan catatan"
 					onClick={() => {
 						setNote(productId, draft);
 						close();
 					}}
 					className="inline-flex h-8 shrink-0 items-center rounded-md bg-surface-2 px-2.5 text-[12px] font-medium text-ink hover:border-hairline-strong border border-transparent"
 				>
-					Save
+					Simpan
 				</button>
 				<button
 					type="button"
-					aria-label="Discard note changes"
+					aria-label="Buang perubahan catatan"
 					onClick={() => {
 						setDraft(note ?? "");
 						close();
@@ -76,7 +76,7 @@ export function NoteEditor({ productId, productName }: NoteEditorProps) {
 				className="mt-0.5 inline-flex min-h-[24px] items-center gap-1 rounded text-[11px] font-medium text-ink-subtle hover:text-ink"
 			>
 				<NotebookPen className="h-3 w-3" aria-hidden="true" />
-				{note ? "Edit note" : "Add note"}
+				{note ? "Ubah catatan" : "Tambah catatan"}
 			</button>
 		</div>
 	);

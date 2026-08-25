@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 export const LoginSchema = z.object({
-  email: z.email({ error: "Please enter a valid email address." }).trim(),
-  password: z.string().min(1, { error: "Password is required." }),
+  email: z.email({ error: "Masukkan alamat email yang valid." }).trim(),
+  password: z.string().min(1, { error: "Kata sandi wajib diisi." }),
 });
 
 export type LoginFormState = {

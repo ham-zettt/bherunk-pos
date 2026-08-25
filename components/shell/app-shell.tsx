@@ -13,9 +13,9 @@ interface AppShellProps {
 }
 
 const NAV_ITEMS = [
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/inventory", label: "Inventory", icon: Package },
-  { href: "/employees", label: "Employees", icon: Users },
+  { href: "/dashboard", label: "Dasbor", icon: LayoutDashboard },
+  { href: "/inventory", label: "Inventaris", icon: Package },
+  { href: "/employees", label: "Karyawan", icon: Users },
 ] as const;
 
 export function AppShell({ user, children }: AppShellProps) {
@@ -118,19 +118,24 @@ function NavLinks({
 }
 
 function UserBlock({ name, role }: { name: string; role: Role }) {
+  const roleLabels: Record<Role, string> = {
+    ADMIN: "Admin",
+    CASHIER: "Kasir",
+    KITCHEN: "Dapur",
+  };
   return (
     <div className="flex items-center justify-between gap-2">
       <div className="min-w-0">
         <p className="truncate text-sm text-ink">{name}</p>
         <span className="mt-0.5 inline-block rounded-pill bg-surface-2 px-2 py-0.5 text-[12px] leading-none text-ink-muted">
-          {role}
+          {roleLabels[role]}
         </span>
       </div>
       <form action={logout}>
         <button
           type="submit"
-          aria-label="Sign out"
-          title="Sign out"
+          aria-label="Keluar"
+          title="Keluar"
           className="inline-flex h-10 w-10 items-center justify-center rounded-md text-ink-subtle hover:bg-surface-1 hover:text-ink transition-colors"
         >
           <LogOut className="h-4 w-4" aria-hidden="true" />

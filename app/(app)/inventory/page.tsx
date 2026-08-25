@@ -3,7 +3,7 @@ import { requireRole } from "@/lib/auth";
 import { InventoryView } from "@/components/inventory/inventory-view";
 import type { CategoryOption, ProductRow } from "@/components/inventory/types";
 
-export const metadata = { title: "Inventory | D'BHERUNK Cafe System" };
+export const metadata = { title: "Inventaris | Sistem Kafe D'BHERUNK" };
 
 export default async function InventoryPage() {
   await requireRole("ADMIN");

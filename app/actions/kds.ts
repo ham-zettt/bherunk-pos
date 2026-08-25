@@ -42,7 +42,7 @@ export async function transitionOrder(
 		action: formData.get("action"),
 	});
 	if (!parsed.success) {
-		return { message: "Invalid transition request." };
+		return { message: "Permintaan perubahan status tidak valid." };
 	}
 
 	const { orderId, action } = parsed.data;
@@ -52,7 +52,7 @@ export async function transitionOrder(
 		select: { id: true },
 	});
 	if (!exists) {
-		return { message: "Order no longer exists." };
+		return { message: "Pesanan tidak lagi ada." };
 	}
 
 	const result = await db.order.updateMany({
@@ -61,7 +61,7 @@ export async function transitionOrder(
 	});
 
 	if (result.count === 0) {
-		return { message: "Ticket already moved on another screen." };
+		return { message: "Tiket sudah diproses di layar lain." };
 	}
 
 	revalidatePath("/kds");

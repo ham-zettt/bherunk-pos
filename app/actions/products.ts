@@ -6,18 +6,18 @@ import { db } from "@/lib/db";
 import { requireRole } from "@/lib/auth";
 
 const ProductSchema = z.object({
-  name: z.string().trim().min(1, { error: "Name is required." }).max(100),
+  name: z.string().trim().min(1, { error: "Nama wajib diisi." }).max(100),
   description: z.string().trim().max(500).optional().or(z.literal("")),
   price: z.coerce
-    .number({ error: "Price must be a number." })
-    .positive({ error: "Price must be greater than zero." })
-    .max(10_000_000, { error: "Price looks unrealistic." }),
+    .number({ error: "Harga harus berupa angka." })
+    .positive({ error: "Harga harus lebih dari nol." })
+    .max(10_000_000, { error: "Harga tidak wajar." }),
   stock: z.coerce
-    .number({ error: "Stock must be a number." })
-    .int({ error: "Stock must be a whole number." })
-    .min(0, { error: "Stock cannot be negative." })
+    .number({ error: "Stok harus berupa angka." })
+    .int({ error: "Stok harus berupa bilangan bulat." })
+    .min(0, { error: "Stok tidak boleh negatif." })
     .max(1_000_000),
-  categoryId: z.uuid({ error: "Please pick a category." }),
+  categoryId: z.uuid({ error: "Silakan pilih kategori." }),
 });
 
 export type ProductFormState = {
@@ -43,7 +43,7 @@ export async function createProduct(
   if (!parsed.success) {
     return {
       errors: parsed.error.flatten().fieldErrors as ProductFormState["errors"],
-      message: "Please fix the highlighted fields.",
+      message: "Perbaiki kolom yang ditandai.",
     };
   }
 
@@ -52,7 +52,7 @@ export async function createProduct(
     select: { id: true },
   });
   if (!categoryExists) {
-    return { errors: { categoryId: ["Category no longer exists."] }, message: "Please fix the highlighted fields." };
+    return { errors: { categoryId: ["Kategori sudah tidak ada."] }, message: "Perbaiki kolom yang ditandai." };
   }
 
   const { description, ...rest } = parsed.data;
@@ -76,7 +76,7 @@ export async function updateProduct(
 
   const productId = z.uuid().safeParse(formData.get("productId"));
   if (!productId.success) {
-    return { message: "Product not found." };
+    return { message: "Produk tidak ditemukan." };
   }
 
   const parsed = ProductSchema.safeParse({
@@ -90,7 +90,7 @@ export async function updateProduct(
   if (!parsed.success) {
     return {
       errors: parsed.error.flatten().fieldErrors as ProductFormState["errors"],
-      message: "Please fix the highlighted fields.",
+      message: "Perbaiki kolom yang ditandai.",
     };
   }
 
@@ -102,10 +102,10 @@ export async function updateProduct(
     }),
   ]);
   if (!existing) {
-    return { message: "Product no longer exists. Refresh and try again." };
+    return { message: "Produk sudah tidak ada. Muat ulang lalu coba lagi." };
   }
   if (!categoryExists) {
-    return { errors: { categoryId: ["Category no longer exists."] }, message: "Please fix the highlighted fields." };
+    return { errors: { categoryId: ["Kategori sudah tidak ada."] }, message: "Perbaiki kolom yang ditandai." };
   }
 
   const { description, ...rest } = parsed.data;
@@ -139,7 +139,7 @@ export async function deleteProduct(
 
   const parsedId = z.uuid().safeParse(formData.get("productId"));
   if (!parsedId.success) {
-    return { message: "Product not found." };
+    return { message: "Produk tidak ditemukan." };
   }
 
   const existing = await db.product.findUnique({
@@ -147,11 +147,11 @@ export async function deleteProduct(
     select: { _count: { select: { orderItems: true } } },
   });
   if (!existing) {
-    return { message: "Product no longer exists. Refresh and try again." };
+    return { message: "Produk sudah tidak ada. Muat ulang lalu coba lagi." };
   }
   if (existing._count.orderItems > 0) {
     return {
-      message: `Cannot delete — this product appears in ${existing._count.orderItems} order record(s). Set its stock to 0 instead.`,
+      message: `Tidak dapat dihapus — produk ini muncul di ${existing._count.orderItems} catatan pesanan. Set stoknya menjadi 0 sebagai gantinya.`,
     };
   }
 
@@ -164,7 +164,7 @@ export async function deleteProduct(
 const StockAdjustSchema = z.object({
   productId: z.uuid(),
   delta: z.coerce.number().int().refine((v) => v === 1 || v === -1, {
-    error: "Delta must be +1 or -1.",
+    error: "Perubahan harus +1 atau -1.",
   }),
 });
 
@@ -176,7 +176,7 @@ export async function adjustStock(formData: FormData): Promise<DeleteResult> {
     delta: formData.get("delta"),
   });
   if (!parsed.success) {
-    return { message: "Invalid stock adjustment." };
+    return { message: "Penyesuaian stok tidak valid." };
   }
 
   const result = await db.product.updateMany({
@@ -184,7 +184,7 @@ export async function adjustStock(formData: FormData): Promise<DeleteResult> {
     data: { stock: { increment: parsed.data.delta } },
   });
   if (result.count === 0) {
-    return { message: "Stock cannot go below zero or product no longer exists." };
+    return { message: "Stok tidak bisa kurang dari nol atau produk sudah tidak ada." };
   }
 
   revalidatePath("/inventory");

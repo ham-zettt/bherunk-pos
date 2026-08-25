@@ -8,8 +8,8 @@ import { createEmployee, type EmployeeFormState } from "@/app/actions/users";
 const initialFormState: EmployeeFormState = {};
 
 const ROLES = [
-	{ value: "CASHIER", label: "Cashier" },
-	{ value: "KITCHEN", label: "Kitchen" },
+	{ value: "CASHIER", label: "Kasir" },
+	{ value: "KITCHEN", label: "Dapur" },
 	{ value: "ADMIN", label: "Admin" },
 ] as const;
 
@@ -45,11 +45,11 @@ export function AddEmployeeDialog({ open, onClose }: AddEmployeeDialogProps) {
 		>
 			<div className="flex items-start justify-between gap-4">
 				<h2 id="employee-dialog-title" className="text-lg font-medium text-ink">
-					Add employee
+					Tambah karyawan
 				</h2>
 				<button
 					type="button"
-					aria-label="Close dialog"
+					aria-label="Tutup dialog"
 					onClick={onClose}
 					className="inline-flex h-8 w-8 items-center justify-center rounded-md text-ink-subtle hover:bg-surface-2 hover:text-ink"
 				>
@@ -68,7 +68,7 @@ export function AddEmployeeDialog({ open, onClose }: AddEmployeeDialogProps) {
 				)}
 
 				<Field
-					label="Full name"
+					label="Nama lengkap"
 					name="name"
 					placeholder="Rina Putri"
 					error={state.errors?.name?.[0]}
@@ -84,10 +84,10 @@ export function AddEmployeeDialog({ open, onClose }: AddEmployeeDialogProps) {
 					required
 				/>
 				<Field
-					label="Password"
+					label="Kata sandi"
 					name="password"
 					type="password"
-					placeholder="Min. 8 characters"
+					placeholder="Minimal 8 karakter"
 					autoComplete="new-password"
 					error={state.errors?.password?.[0]}
 					required
@@ -106,7 +106,7 @@ export function AddEmployeeDialog({ open, onClose }: AddEmployeeDialogProps) {
 						className="w-full rounded-md bg-surface-2 border border-hairline px-3 py-2 text-base text-ink outline-none focus-visible:border-hairline-strong focus-visible:outline-2 focus-visible:outline-primary-focus/50"
 					>
 						<option value="" disabled>
-							Select a role…
+							Pilih Role…
 						</option>
 						{ROLES.map((r) => (
 							<option key={r.value} value={r.value}>
@@ -125,7 +125,7 @@ export function AddEmployeeDialog({ open, onClose }: AddEmployeeDialogProps) {
 						onClick={onClose}
 						className="min-h-[40px] rounded-md bg-surface-2 px-3.5 text-sm font-medium text-ink hover:border-hairline-strong border border-transparent"
 					>
-						Cancel
+						Batal
 					</button>
 					<button
 						type="submit"
@@ -135,7 +135,7 @@ export function AddEmployeeDialog({ open, onClose }: AddEmployeeDialogProps) {
 						{pending && (
 							<Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
 						)}
-						{pending ? "Creating…" : "Create account"}
+						{pending ? "Membuat…" : "Buat akun"}
 					</button>
 				</div>
 			</form>

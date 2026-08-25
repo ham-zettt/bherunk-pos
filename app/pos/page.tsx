@@ -6,7 +6,7 @@ import { PosView } from "@/components/pos/pos-view";
 import type { PosCategory, PosProduct } from "@/components/pos/types";
 import type { KdsOrder } from "@/hooks/use-order-polling";
 
-export const metadata = { title: "POS | D'BHERUNK Cafe System" };
+export const metadata = { title: "Kasir | Sistem Kafe D'BHERUNK" };
 
 /** Full-screen POS for cashiers (and admins per decision #2). */
 export default async function PosPage() {
@@ -67,8 +67,8 @@ export default async function PosPage() {
           <form action={logout}>
             <button
               type="submit"
-              aria-label="Sign out"
-              title="Sign out"
+              aria-label="Keluar"
+              title="Keluar"
               className="inline-flex h-9 w-9 items-center justify-center rounded-md text-ink-subtle hover:bg-surface-2 hover:text-ink focus-visible:outline-2 focus-visible:outline-primary-focus/50"
             >
               <LogOut className="h-4 w-4" aria-hidden="true" />

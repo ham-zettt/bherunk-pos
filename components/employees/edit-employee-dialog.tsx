@@ -9,8 +9,8 @@ import type { EmployeeRow } from "./types";
 const initialFormState: EmployeeFormState = {};
 
 const ROLES = [
-	{ value: "CASHIER", label: "Cashier" },
-	{ value: "KITCHEN", label: "Kitchen" },
+	{ value: "CASHIER", label: "Kasir" },
+	{ value: "KITCHEN", label: "Dapur" },
 	{ value: "ADMIN", label: "Admin" },
 ] as const;
 
@@ -61,11 +61,11 @@ export function EditEmployeeDialog({
 					id="edit-employee-dialog-title"
 					className="text-lg font-medium text-ink"
 				>
-					{employee ? `Edit ${employee.name}` : "Edit employee"}
+					{employee ? `Ubah ${employee.name}` : "Ubah karyawan"}
 				</h2>
 				<button
 					type="button"
-					aria-label="Close dialog"
+					aria-label="Tutup dialog"
 					onClick={onClose}
 					className="inline-flex h-8 w-8 items-center justify-center rounded-md text-ink-subtle hover:bg-surface-2 hover:text-ink"
 				>
@@ -79,7 +79,11 @@ export function EditEmployeeDialog({
 				className="mt-4 space-y-3"
 				noValidate
 			>
-				<input type="hidden" name="employeeId" value={employee?.id ?? ""} />
+				<input
+					type="hidden"
+					name="employeeId"
+					value={employee?.id ?? ""}
+				/>
 				{state.message && !state.ok && (
 					<p
 						role="alert"
@@ -90,8 +94,11 @@ export function EditEmployeeDialog({
 				)}
 
 				<div className="space-y-1.5">
-					<label htmlFor="edit-name" className="block text-sm text-ink-muted">
-						Full name <span aria-hidden="true">*</span>
+					<label
+						htmlFor="edit-name"
+						className="block text-sm text-ink-muted"
+					>
+						Nama lengkap <span aria-hidden="true">*</span>
 					</label>
 					<input
 						id="edit-name"
@@ -103,15 +110,23 @@ export function EditEmployeeDialog({
 						className="w-full rounded-md bg-surface-2 border border-hairline px-3 py-2 text-base text-ink outline-none focus-visible:border-hairline-strong focus-visible:outline-2 focus-visible:outline-primary-focus/50"
 					/>
 					{state.errors?.name && (
-						<p className="text-sm text-ink-subtle">{state.errors.name[0]}</p>
+						<p className="text-sm text-ink-subtle">
+							{state.errors.name[0]}
+						</p>
 					)}
 				</div>
 
 				<div className="space-y-1.5">
-					<label htmlFor="edit-role" className="block text-sm text-ink-muted">
+					<label
+						htmlFor="edit-role"
+						className="block text-sm text-ink-muted"
+					>
 						Role <span aria-hidden="true">*</span>
 						{selfRoleLocked && (
-							<span className="text-ink-tertiary"> (locked for your own account)</span>
+							<span className="text-ink-tertiary">
+								{" "}
+								(terkunci untuk akun Anda sendiri)
+							</span>
 						)}
 					</label>
 					<select
@@ -124,7 +139,7 @@ export function EditEmployeeDialog({
 						className="w-full rounded-md bg-surface-2 border border-hairline px-3 py-2 text-base text-ink outline-none focus-visible:border-hairline-strong focus-visible:outline-2 focus-visible:outline-primary-focus/50 disabled:opacity-60"
 					>
 						<option value="" disabled>
-							Select a role…
+							Pilih Role…
 						</option>
 						{ROLES.map((r) => (
 							<option key={r.value} value={r.value}>
@@ -133,7 +148,9 @@ export function EditEmployeeDialog({
 						))}
 					</select>
 					{state.errors?.role && (
-						<p className="text-sm text-ink-subtle">{state.errors.role[0]}</p>
+						<p className="text-sm text-ink-subtle">
+							{state.errors.role[0]}
+						</p>
 					)}
 				</div>
 
@@ -143,14 +160,16 @@ export function EditEmployeeDialog({
 						className="block text-sm text-ink-muted"
 					>
 						New password{" "}
-						<span className="text-ink-tertiary">(leave blank to keep current)</span>
+						<span className="text-ink-tertiary">
+							(kosongkan jika tidak diubah)
+						</span>
 					</label>
 					<input
 						id="edit-new-password"
 						name="newPassword"
 						type="password"
 						autoComplete="new-password"
-						placeholder="Min. 8 characters"
+						placeholder="Minimal 8 karakter"
 						aria-invalid={Boolean(state.errors?.newPassword)}
 						className="w-full rounded-md bg-surface-2 border border-hairline px-3 py-2 text-base text-ink placeholder:text-ink-tertiary outline-none focus-visible:border-hairline-strong focus-visible:outline-2 focus-visible:outline-primary-focus/50"
 					/>
@@ -167,7 +186,7 @@ export function EditEmployeeDialog({
 						onClick={onClose}
 						className="min-h-[40px] rounded-md bg-surface-2 px-3.5 text-sm font-medium text-ink hover:border-hairline-strong border border-transparent"
 					>
-						Cancel
+						Batal
 					</button>
 					<button
 						type="submit"
@@ -175,9 +194,12 @@ export function EditEmployeeDialog({
 						className="inline-flex min-h-[40px] items-center gap-2 rounded-md bg-primary px-3.5 py-2 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover active:bg-primary-focus disabled:cursor-not-allowed disabled:opacity-60"
 					>
 						{pending && (
-							<Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+							<Loader2
+								className="h-4 w-4 animate-spin"
+								aria-hidden="true"
+							/>
 						)}
-						{pending ? "Saving…" : "Save changes"}
+						{pending ? "Menyimpan…" : "Simpan perubahan"}
 					</button>
 				</div>
 			</form>

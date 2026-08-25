@@ -59,11 +59,11 @@ export function ProductDialog({
 					id="product-dialog-title"
 					className="text-lg font-medium text-ink"
 				>
-					{product ? `Edit ${product.name}` : "Add product"}
+					{product ? `Ubah ${product.name}` : "Tambah produk"}
 				</h2>
 				<button
 					type="button"
-					aria-label="Close dialog"
+					aria-label="Tutup dialog"
 					onClick={onClose}
 					className="inline-flex h-8 w-8 items-center justify-center rounded-md text-ink-subtle hover:bg-surface-2 hover:text-ink"
 				>
@@ -90,14 +90,14 @@ export function ProductDialog({
 				)}
 
 				<Field
-					label="Name"
+					label="Nama"
 					name="name"
 					defaultValue={product?.name}
 					error={state.errors?.name?.[0]}
 					required
 				/>
 				<Field
-					label="Description"
+					label="Deskripsi"
 					name="description"
 					defaultValue={product?.description ?? ""}
 					error={state.errors?.description?.[0]}
@@ -105,7 +105,7 @@ export function ProductDialog({
 				/>
 				<div className="grid grid-cols-2 gap-3">
 					<Field
-						label="Price (IDR)"
+						label="Harga (IDR)"
 						name="price"
 						type="number"
 						min={1}
@@ -120,7 +120,7 @@ export function ProductDialog({
 						required
 					/>
 					<Field
-						label="Stock"
+						label="Stok"
 						name="stock"
 						type="number"
 						min={0}
@@ -137,7 +137,7 @@ export function ProductDialog({
 						htmlFor="categoryId"
 						className="block text-sm text-ink-muted"
 					>
-						Category <span aria-hidden="true">*</span>
+						Kategori <span aria-hidden="true">*</span>
 					</label>
 					<select
 						id="categoryId"
@@ -148,7 +148,7 @@ export function ProductDialog({
 						className="w-full rounded-md bg-surface-2 border border-hairline px-3 py-2 text-base text-ink outline-none focus-visible:border-hairline-strong focus-visible:outline-2 focus-visible:outline-primary-focus/50"
 					>
 						<option value="" disabled>
-							Select a category…
+							Pilih kategori…
 						</option>
 						{categories.map((c) => (
 							<option key={c.id} value={c.id}>
@@ -169,11 +169,11 @@ export function ProductDialog({
 						onClick={onClose}
 						className="min-h-[40px] rounded-md bg-surface-2 px-3.5 text-sm font-medium text-ink hover:border-hairline-strong border border-transparent"
 					>
-						Cancel
+						Batal
 					</button>
 					<SubmitButton
 						pending={pending}
-						label={product ? "Save changes" : "Save product"}
+						label={product ? "Simpan perubahan" : "Simpan produk"}
 					/>
 				</div>
 			</form>
@@ -191,7 +191,7 @@ function SubmitButton({ pending, label }: { pending: boolean; label: string }) {
 			{pending && (
 				<Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
 			)}
-			{pending ? "Saving…" : label}
+			{pending ? "Menyimpan…" : label}
 		</button>
 	);
 }
@@ -226,7 +226,7 @@ function Field({
 			<label htmlFor={name} className="block text-sm text-ink-muted">
 				{label} {required && <span aria-hidden="true">*</span>}
 				{optional && (
-					<span className="text-ink-tertiary">(optional)</span>
+					<span className="text-ink-tertiary">(opsional)</span>
 				)}
 			</label>
 			<input

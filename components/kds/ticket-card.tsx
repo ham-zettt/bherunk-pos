@@ -84,7 +84,7 @@ export function TicketCard({ order, onSynced }: TicketCardProps) {
 		<article
 			className={`rounded-lg border bg-surface-1 p-4 ${
 				late
-					? "border-hairline-strong shadow-[0_0_0_1px_rgba(94,106,210,0.35)]"
+					? "border-hairline-strong ring-1 ring-primary-focus/40"
 					: "border-hairline"
 			}`}
 		>
@@ -96,11 +96,11 @@ export function TicketCard({ order, onSynced }: TicketCardProps) {
 					className={`inline-flex items-center gap-1.5 rounded-pill px-2.5 py-1 text-[12px] font-semibold tabular-nums ${
 						late ? "bg-surface-2 text-ink" : "text-ink-muted"
 					}`}
-					title={late ? "Waiting longer than 10 minutes" : undefined}
+					title={late ? "Menunggu lebih dari 10 menit" : undefined}
 				>
 					<AlarmClock className="h-3.5 w-3.5" aria-hidden="true" />
 					{formatElapsed(elapsed)}
-					{late && <span className="sr-only"> — late</span>}
+					{late && <span className="sr-only"> — terlambat</span>}
 				</span>
 			</header>
 
@@ -114,7 +114,7 @@ export function TicketCard({ order, onSynced }: TicketCardProps) {
 						{/* Notes are never truncated — full callout, always readable */}
 						{item.note && (
 							<p className="mt-1 inline-block rounded-pill bg-surface-2 px-2.5 py-1 text-[12px] font-medium uppercase leading-snug text-ink">
-								Note · {item.note}
+								Catatan · {item.note}
 							</p>
 						)}
 					</li>
@@ -150,7 +150,7 @@ export function TicketCard({ order, onSynced }: TicketCardProps) {
 							) : (
 								<ChefHat className="h-4 w-4" aria-hidden="true" />
 							)}
-							Start preparing
+							Mulai proses
 						</button>
 					)}
 					<button
@@ -168,7 +168,7 @@ export function TicketCard({ order, onSynced }: TicketCardProps) {
 						) : (
 							<Check className="h-4 w-4" aria-hidden="true" />
 						)}
-						Complete
+						Selesaikan
 					</button>
 				</form>
 			)}

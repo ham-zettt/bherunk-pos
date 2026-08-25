@@ -40,7 +40,7 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
           required
           aria-invalid={Boolean(state.errors?.email)}
           aria-describedby={state.errors?.email ? "email-error" : undefined}
-          placeholder="you@dbherunk.id"
+          placeholder="anda@dbherunk.id"
           className="w-full rounded-md bg-surface-2 border border-hairline px-3 py-2 text-base text-ink placeholder:text-ink-tertiary outline-none focus-visible:border-hairline-strong focus-visible:outline-2 focus-visible:outline-primary-focus/50"
         />
         {state.errors?.email && (
@@ -52,7 +52,7 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
 
       <div className="space-y-1.5">
         <label htmlFor="password" className="block text-sm text-ink-muted">
-          Password
+          Kata sandi
         </label>
         <input
           id="password"
@@ -85,7 +85,7 @@ function SubmitButton({ pending }: { pending: boolean }) {
       className="flex w-full items-center justify-center gap-2 rounded-md bg-primary px-3.5 py-2 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover active:bg-primary-focus disabled:cursor-not-allowed disabled:opacity-60 min-h-[40px]"
     >
       {pending && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}
-      {pending ? "Signing in…" : "Sign in"}
+      {pending ? "Sedang masuk…" : "Masuk"}
     </button>
   );
 }
