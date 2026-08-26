@@ -2,19 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useActionState } from "react";
-import {
-	AlarmClock,
-	Check,
-	ChefHat,
-	Loader2,
-} from "lucide-react";
-import {
-	transitionOrder,
-	type TransitionResult,
-} from "@/app/actions/kds";
+import { AlarmClock, Check, ChefHat, Loader2 } from "lucide-react";
+import { transitionOrder, type TransitionResult } from "@/app/actions/kds";
 import type { KdsOrder } from "@/hooks/use-order-polling";
 
-const LATE_AFTER_MS = 10 * 60 * 1000;
+const LATE_AFTER_MS = 15 * 60 * 1000;
 
 /** Ticking elapsed timer; re-renders only this component every second. */
 function useElapsed(createdAt: string): number {
@@ -98,8 +90,15 @@ export function TicketCard({ order, onSynced }: TicketCardProps) {
 					}`}
 					title={late ? "Menunggu lebih dari 10 menit" : undefined}
 				>
-					<AlarmClock className="h-3.5 w-3.5" aria-hidden="true" />
-					{formatElapsed(elapsed)}
+					{status !== "COMPLETED" && (
+						<div>
+							<AlarmClock
+								className="h-3.5 w-3.5"
+								aria-hidden="true"
+							/>
+							{formatElapsed(elapsed)}
+						</div>
+					)}
 					{late && <span className="sr-only"> — terlambat</span>}
 				</span>
 			</header>
@@ -108,7 +107,9 @@ export function TicketCard({ order, onSynced }: TicketCardProps) {
 				{order.items.map((item, idx) => (
 					<li key={idx}>
 						<p className="text-sm leading-snug text-ink">
-							<span className="font-semibold tabular-nums">{item.qty}×</span>{" "}
+							<span className="font-semibold tabular-nums">
+								{item.qty}×
+							</span>{" "}
 							{item.name}
 						</p>
 						{/* Notes are never truncated — full callout, always readable */}
@@ -122,7 +123,10 @@ export function TicketCard({ order, onSynced }: TicketCardProps) {
 			</ul>
 
 			{!isPending && state.message && (
-				<p role="alert" className="mt-2 text-[12px] font-medium text-ink-subtle">
+				<p
+					role="alert"
+					className="mt-2 text-[12px] font-medium text-ink-subtle"
+				>
 					{state.message}
 				</p>
 			)}
@@ -138,7 +142,9 @@ export function TicketCard({ order, onSynced }: TicketCardProps) {
 							type="submit"
 							name="action"
 							value="start"
-							onClick={(e) => setPendingKind(e.currentTarget.value as "start")}
+							onClick={(e) =>
+								setPendingKind(e.currentTarget.value as "start")
+							}
 							disabled={isPending}
 							className="inline-flex min-h-[40px] flex-1 items-center justify-center gap-2 rounded-md bg-surface-2 px-3 text-sm font-medium text-ink transition-colors hover:border-hairline-strong disabled:cursor-not-allowed disabled:opacity-60"
 						>
@@ -148,7 +154,10 @@ export function TicketCard({ order, onSynced }: TicketCardProps) {
 									aria-hidden="true"
 								/>
 							) : (
-								<ChefHat className="h-4 w-4" aria-hidden="true" />
+								<ChefHat
+									className="h-4 w-4"
+									aria-hidden="true"
+								/>
 							)}
 							Mulai proses
 						</button>
@@ -164,7 +173,10 @@ export function TicketCard({ order, onSynced }: TicketCardProps) {
 						className="inline-flex min-h-[40px] flex-1 items-center justify-center gap-2 rounded-md bg-primary px-3 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover active:bg-primary-focus disabled:cursor-not-allowed disabled:opacity-60"
 					>
 						{isPending && pendingKind === "complete" ? (
-							<Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+							<Loader2
+								className="h-4 w-4 animate-spin"
+								aria-hidden="true"
+							/>
 						) : (
 							<Check className="h-4 w-4" aria-hidden="true" />
 						)}

@@ -111,7 +111,7 @@ export function InventoryView({ products, categories }: InventoryViewProps) {
 		<div className="space-y-6">
 			<div className="flex flex-wrap items-center justify-between gap-3">
 				<h1 className="text-[28px] font-semibold leading-tight tracking-[-0.6px] text-ink">
-					Inventaris
+					Kelola Menu
 				</h1>
 				<button
 					type="button"
@@ -179,7 +179,7 @@ export function InventoryView({ products, categories }: InventoryViewProps) {
 					</h2>
 					<p className="mt-1 text-sm text-ink-subtle">
 						{products.length === 0
-							? "Mulailah dengan menambahkan produk pertama."
+							? "Tidak ada produk."
 							: query.trim() !== ""
 								? "Coba kata kunci lain atau hapus filter kategori."
 								: "Coba filter kategori lain."}

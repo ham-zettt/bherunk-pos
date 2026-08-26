@@ -46,7 +46,7 @@ export function SuccessDialog({
 			onClick={(e) => {
 				if (e.target === dialogRef.current) finish();
 			}}
-			className="mx-auto max-w-[min(22rem,calc(100vw-2rem))] w-[min(22rem,calc(100vw-2rem))] bg-transparent p-0 border-0 backdrop:bg-semantic-overlay/70"
+			className="mx-auto my-auto max-w-[min(22rem,calc(100vw-2rem))] w-[min(22rem,calc(100vw-2rem))] bg-transparent p-0 border-0 backdrop:bg-semantic-overlay/70"
 		>
 			<div className="rounded-lg border border-hairline bg-surface-1 p-6 text-center">
 				<CheckCircle2

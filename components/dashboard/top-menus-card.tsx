@@ -1,7 +1,5 @@
 import type { TopMenuRow } from "@/lib/queries/analytics";
 
-const RANK_STYLES = ["text-ink", "text-ink-muted", "text-ink-subtle"] as const;
-
 /** 4th metric slot: top 3 best-selling menus, calendar month to date. */
 export function TopMenusCard({ items }: { items: TopMenuRow[] }) {
 	return (

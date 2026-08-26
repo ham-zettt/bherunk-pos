@@ -3,7 +3,15 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Coffee, LayoutDashboard, LogOut, Menu, Package, Users } from "lucide-react";
+import {
+	Coffee,
+	LayoutDashboard,
+	LogOut,
+	Menu,
+	Package,
+	ReceiptText,
+	Users,
+} from "lucide-react";
 import { logout } from "@/app/actions/auth";
 import type { Role } from "@/lib/constants";
 
@@ -14,7 +22,8 @@ interface AppShellProps {
 
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Dasbor", icon: LayoutDashboard },
-  { href: "/inventory", label: "Inventaris", icon: Package },
+  { href: "/inventory", label: "Menu", icon: Package },
+	{ href: "/orders", label: "Pesanan", icon: ReceiptText },
   { href: "/employees", label: "Karyawan", icon: Users },
 ] as const;
 
@@ -79,7 +88,7 @@ function BrandMark() {
         <Coffee className="h-4 w-4 text-primary" aria-hidden="true" />
       </span>
       <span className="text-[13px] font-semibold tracking-[0.4px] uppercase text-ink">
-        D&apos;Bherunk
+        D'BHERUNK CAFE
       </span>
     </Link>
   );

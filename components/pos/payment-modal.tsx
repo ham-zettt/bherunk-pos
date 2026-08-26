@@ -27,7 +27,10 @@ export function PaymentModal({
 	const dialogRef = useRef<HTMLDialogElement>(null);
 	const handledOrderRef = useRef<string | null>(null);
 	const { lines, notes } = useCart();
-	const [state, action, pending] = useActionState(createOrder, initialCheckout);
+	const [state, action, pending] = useActionState(
+		createOrder,
+		initialCheckout,
+	);
 	const [method, setMethod] = useState<"CASH" | "QRIS">("CASH");
 	const [cashReceived, setCashReceived] = useState<string>("");
 
@@ -74,10 +77,13 @@ export function PaymentModal({
 			onClick={(e) => {
 				if (e.target === dialogRef.current) onClose();
 			}}
-			className="w-[min(24rem,calc(100vw-2rem))] rounded-lg border border-hairline bg-surface-1 p-6 text-ink backdrop:bg-semantic-overlay/70"
+			className="w-[min(24rem,calc(100vw-2rem))] mx-auto my-auto rounded-lg border border-hairline bg-surface-1 p-6 text-ink backdrop:bg-semantic-overlay/70"
 		>
 			<div className="flex items-start justify-between gap-4">
-				<h2 id="payment-dialog-title" className="text-lg font-medium text-ink">
+				<h2
+					id="payment-dialog-title"
+					className="text-lg font-medium text-ink"
+				>
 					Pembayaran
 				</h2>
 				<button
@@ -111,18 +117,30 @@ export function PaymentModal({
 				</div>
 
 				<fieldset>
-					<legend className="mb-1.5 text-sm text-ink-muted">Metode</legend>
+					<legend className="mb-1.5 text-sm text-ink-muted">
+						Metode
+					</legend>
 					<div className="grid grid-cols-2 gap-2">
 						<MethodChip
 							selected={method === "CASH"}
 							onClick={() => setMethod("CASH")}
-							icon={<Banknote className="h-4 w-4" aria-hidden="true" />}
+							icon={
+								<Banknote
+									className="h-4 w-4"
+									aria-hidden="true"
+								/>
+							}
 							label="Tunai"
 						/>
 						<MethodChip
 							selected={method === "QRIS"}
 							onClick={() => setMethod("QRIS")}
-							icon={<QrCode className="h-4 w-4" aria-hidden="true" />}
+							icon={
+								<QrCode
+									className="h-4 w-4"
+									aria-hidden="true"
+								/>
+							}
 							label="QRIS"
 						/>
 					</div>
@@ -130,7 +148,10 @@ export function PaymentModal({
 
 				{method === "CASH" && (
 					<div className="space-y-1.5">
-						<label htmlFor="cash-received" className="block text-sm text-ink-muted">
+						<label
+							htmlFor="cash-received"
+							className="block text-sm text-ink-muted"
+						>
 							Uang diterima
 						</label>
 						<input
@@ -146,13 +167,17 @@ export function PaymentModal({
 							aria-invalid={!cashValid}
 							className="w-full rounded-md bg-surface-2 border border-hairline px-3 py-2 text-base tabular-nums text-ink placeholder:text-ink-tertiary outline-none focus-visible:border-hairline-strong focus-visible:outline-2 focus-visible:outline-primary-focus/50"
 						/>
-						{cashReceived !== "" && Number.isFinite(receivedInt) && (
-							<p aria-live="polite" className="text-sm text-ink-muted">
-								{receivedInt >= subtotalInt
-									? `Kembalian: Rp ${formatAmount(receivedInt - subtotalInt)}`
-									: "Uang diterima belum cukup."}
-							</p>
-						)}
+						{cashReceived !== "" &&
+							Number.isFinite(receivedInt) && (
+								<p
+									aria-live="polite"
+									className="text-sm text-ink-muted"
+								>
+									{receivedInt >= subtotalInt
+										? `Kembalian: Rp ${formatAmount(receivedInt - subtotalInt)}`
+										: "Uang diterima belum cukup."}
+								</p>
+							)}
 					</div>
 				)}
 
@@ -170,9 +195,12 @@ export function PaymentModal({
 						className="inline-flex min-h-[40px] items-center gap-2 rounded-md bg-primary px-3.5 py-2 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover active:bg-primary-focus disabled:cursor-not-allowed disabled:opacity-60"
 					>
 						{pending && (
-							<Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+							<Loader2
+								className="h-4 w-4 animate-spin"
+								aria-hidden="true"
+							/>
 						)}
-						{pending ? "Memproses…" : "Konfirmasi &amp; bayar"}
+						{pending ? "Memproses…" : "Konfirmasi Bayar"}
 					</button>
 				</div>
 			</form>

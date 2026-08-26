@@ -27,7 +27,7 @@ export const ROLE_ALLOWED_PREFIXES: Record<Role, string[]> = {
 		"/pos",
 		"/kds",
 	],
-	CASHIER: ["/pos", "/orders"],
+	CASHIER: ["/pos"],
 	KITCHEN: ["/kds"],
 };
 

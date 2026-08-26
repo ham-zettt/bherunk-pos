@@ -88,7 +88,7 @@ export function ConfirmDeleteDialog({ product, onClose }: ConfirmDeleteDialogPro
 				<button
 					type="submit"
 					disabled={pending || hasHistory}
-					className="inline-flex min-h-[40px] items-center gap-2 rounded-md bg-surface-2 px-3.5 py-2 text-sm font-medium text-ink transition-colors hover:bg-canvas disabled:cursor-not-allowed disabled:opacity-60"
+					className="inline-flex min-h-[40px] items-center gap-2 rounded-md bg-red-700 px-3.5 py-2 text-sm font-medium text-ink transition-colors hover:bg-red-800 disabled:cursor-not-allowed disabled:opacity-60"
 				>
 					{pending && (
 						<Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
