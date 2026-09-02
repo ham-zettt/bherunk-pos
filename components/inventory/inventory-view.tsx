@@ -39,6 +39,7 @@ export function InventoryView({ products, categories }: InventoryViewProps) {
 	>("closed");
 	const [deleteTarget, setDeleteTarget] = useState<ProductRow | null>(null);
 	const [query, setQuery] = useState("");
+	const [createKey, setCreateKey] = useState(0);
 
 	function toggleSort(key: SortKey) {
 		if (key === sortKey) {
@@ -115,7 +116,10 @@ export function InventoryView({ products, categories }: InventoryViewProps) {
 				</h1>
 				<button
 					type="button"
-					onClick={() => setDialogProduct(null)}
+					onClick={() => {
+						setCreateKey((k) => k + 1);
+						setDialogProduct(null);
+					}}
 					className="inline-flex min-h-[40px] items-center gap-2 rounded-md bg-primary px-3.5 py-2 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover active:bg-primary-focus"
 				>
 					<Plus className="h-4 w-4" aria-hidden="true" />
@@ -314,12 +318,13 @@ export function InventoryView({ products, categories }: InventoryViewProps) {
 				</div>
 			)}
 
-			<ProductDialog
-				open={dialogProduct !== "closed"}
-				product={dialogProduct === "closed" ? null : dialogProduct}
-				categories={categories}
-				onClose={() => setDialogProduct("closed")}
-			/>
+		<ProductDialog
+			key={dialogProduct === "closed" ? undefined : dialogProduct?.id ?? `create-${createKey}`}
+			open={dialogProduct !== "closed"}
+			product={dialogProduct === "closed" ? null : dialogProduct}
+			categories={categories}
+			onClose={() => setDialogProduct("closed")}
+		/>
 			{deleteTarget && (
 				<ConfirmDeleteDialog
 					product={deleteTarget}

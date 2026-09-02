@@ -88,7 +88,7 @@ function BrandMark() {
         <Coffee className="h-4 w-4 text-primary" aria-hidden="true" />
       </span>
       <span className="text-[13px] font-semibold tracking-[0.4px] uppercase text-ink">
-        D'BHERUNK CAFE
+        D&apos;BHERUNK CAFE
       </span>
     </Link>
   );
